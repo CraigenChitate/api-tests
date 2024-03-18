@@ -2,44 +2,41 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: craigen-api
-spec: 
+spec:
   replicas: 1
-  selector: 
-    matchLabels: 
+  selector:
+    matchLabels:
       app: craigen-api
   template:
     metadata:
-      labels: 
+      labels:
         app: craigen-api
-    spec: 
-      containers: 
+    spec:
+      containers:
         - name: craigen-api
           image: us-docker.pkg.dev/my-project-1st-416402/craigen-api/api-tests
-          ports: 
+          ports:
             - containerPort: 3000
           resources:
-            limits: 
-              cpu: ".5"
+            limits:
+              cpu: "500m"
               memory: "500Mi"
-            requests: 
-              cpu: ".25"
-            memory: "250Mi"
-          livenessProbe: 
-            httpGet: 
+            requests:
+              cpu: "250m"
+              memory: "250Mi"
+          livenessProbe:
+            httpGet:
               path: /
               port: 3000
               scheme: HTTP
             failureThreshold: 1
             periodSeconds: 10
             timeoutSeconds: 10
-          startupProbe: 
-            httpGet: 
+          startupProbe:
+            httpGet:
               path: /
               port: 3000
               scheme: HTTP
             failureThreshold: 30
             periodSeconds: 10
             timeoutSeconds: 10
-            
-
-          
